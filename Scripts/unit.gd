@@ -5,7 +5,8 @@ var path_ind: int = 0
 const SPEED: float = 12.0
 
 @onready var nav: Node3D = get_parent()
-@onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
+@onready var nav_agent = $NavigationAgent3D
+@onready var selection_ring = $SelectionRing
 
 func move_to(target_pos: Vector3) -> void:
 	path = get_navigation_path(global_position, target_pos)
@@ -35,3 +36,9 @@ func get_navigation_path(p_start_position: Vector3, p_target_position: Vector3) 
 		1
 	)
 	return navigation_path
+	
+func select():
+	selection_ring.show()
+	
+func deselect():
+	selection_ring.hide()

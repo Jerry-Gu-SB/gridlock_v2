@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dm724idiljfgd"]
+[gd_scene load_steps=8 format=3 uid="uid://dm724idiljfgd"]
 
 [ext_resource type="Script" path="res://Scripts/unit.gd" id="1_f243o"]
 
@@ -11,6 +11,18 @@ material = SubResource("StandardMaterial3D_ea1mo")
 [sub_resource type="BoxMesh" id="BoxMesh_cydgc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mqaaf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnykr"]
+albedo_color = Color(0.138522, 0.58531, 0.228657, 1)
+backlight_enabled = true
+backlight = Color(0, 0.831373, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lyj22"]
+material = SubResource("StandardMaterial3D_bnykr")
+top_radius = 0.8
+bottom_radius = 1.0
+height = 0.001
+cap_top = false
 
 [node name="Unit" type="CharacterBody3D" groups=["units"]]
 transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, 0, 0, 0)
@@ -25,7 +37,7 @@ mesh = SubResource("CapsuleMesh_art17")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="Nose" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.152525, 0, 0, 0, 0.128503, 0, 0, 0, 0.421147, 0, 1.6, 0.564)
+transform = Transform3D(0.152525, 0, 0, 0, 0.128503, 0, 0, 0, 0.421147, 0, 1.6, -0.668984)
 mesh = SubResource("BoxMesh_cydgc")
 skeleton = NodePath("../Body")
 
@@ -35,3 +47,7 @@ shape = SubResource("CapsuleShape3D_mqaaf")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 navigation_layers = 2
+
+[node name="SelectionRing" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CylinderMesh_lyj22")
