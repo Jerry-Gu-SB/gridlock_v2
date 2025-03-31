@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://blo6v3dffhu2c"]
 
-[ext_resource type="Script" path="res://Scripts/camera_base.gd" id="1_6rsc6"]
-[ext_resource type="Script" path="res://Scripts/selection_box.gd" id="2_l6i44"]
+[ext_resource type="Script" path="res://Scenes/camera_base.gd" id="1_6rsc6"]
+[ext_resource type="Script" path="res://Scenes/selection_box.gd" id="2_hrupe"]
 [ext_resource type="PackedScene" uid="uid://dm724idiljfgd" path="res://Scenes/unit.tscn" id="2_wa0w0"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_b4ob1"]
@@ -31,7 +31,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("2_l6i44")
+script = ExtResource("2_hrupe")
 
 [node name="World" type="Node3D" parent="."]
 

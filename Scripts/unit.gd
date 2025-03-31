@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+@export var team = 0
+
 var path: PackedVector3Array = []
 var path_ind: int = 0
 const SPEED: float = 12.0
