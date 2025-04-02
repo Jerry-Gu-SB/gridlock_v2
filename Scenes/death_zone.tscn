@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk1ogy5ggbaw8"]
+
+[ext_resource type="Script" path="res://Scenes/death_zone.gd" id="1_4gxvn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3mvcj"]
+albedo_color = Color(0.996945, 6.23293e-06, 1.54018e-06, 1)
+backlight_enabled = true
+backlight = Color(0.87451, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v5osl"]
+material = SubResource("StandardMaterial3D_3mvcj")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_twbld"]
+size = Vector3(2, 1, 2)
+
+[node name="DeathZoneRoot" type="Area3D"]
+script = ExtResource("1_4gxvn")
+
+[node name="DeathBox" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_v5osl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_twbld")

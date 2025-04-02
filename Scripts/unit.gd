@@ -4,7 +4,7 @@ extends CharacterBody3D
 
 var path: PackedVector3Array = []
 var path_ind: int = 0
-const SPEED: float = 12.0
+const SPEED: float = 6
 
 @onready var nav: Node3D = get_parent()
 @onready var nav_agent = $NavigationAgent3D
