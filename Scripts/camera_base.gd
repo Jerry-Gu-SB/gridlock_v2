@@ -101,3 +101,7 @@ func raycast_from_mouse(mouse_position: Vector2, collision_mask: int):
 	intersect_ray_params.collision_mask = collision_mask
 
 	return space_state.intersect_ray(intersect_ray_params)
+
+
+func _on_global_timer_timer_expired() -> void:
+	pass # Replace with function body.

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dk1ogy5ggbaw8"]
 
-[ext_resource type="Script" path="res://Scenes/death_zone.gd" id="1_4gxvn"]
+[ext_resource type="Script" path="res://Scripts/death_zone.gd" id="1_4gxvn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3mvcj"]
 albedo_color = Color(0.996945, 6.23293e-06, 1.54018e-06, 1)

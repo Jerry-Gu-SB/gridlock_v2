@@ -1,65 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://blo6v3dffhu2c"]
+[gd_scene load_steps=6 format=3 uid="uid://blo6v3dffhu2c"]
 
-[ext_resource type="Script" path="res://Scripts/camera_base.gd" id="1_6rsc6"]
-[ext_resource type="Script" path="res://Scripts/selection_box.gd" id="2_l6i44"]
-[ext_resource type="PackedScene" uid="uid://dm724idiljfgd" path="res://Scenes/unit.tscn" id="2_wa0w0"]
-[ext_resource type="PackedScene" uid="uid://dk1ogy5ggbaw8" path="res://Scenes/death_zone.tscn" id="4_53tp2"]
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_b4ob1"]
-vertices = PackedVector3Array(-19.33, 0.5, -19.33, -19.33, 0.5, 19.42, 19.42, 0.5, 19.42, 19.42, 0.5, -19.33)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxoh7"]
-albedo_color = Color(1, 0.741176, 0.752941, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ilnnx"]
-material = SubResource("StandardMaterial3D_mxoh7")
-size = Vector2(3, 3)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7u75y"]
-size = Vector3(40, 0.705, 40)
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_k82q4"]
+[ext_resource type="PackedScene" uid="uid://bfrofs3i8yyls" path="res://Scenes/camera_base.tscn" id="2_wu88m"]
+[ext_resource type="PackedScene" uid="uid://x4rkakcug4ls" path="res://Scenes/world.tscn" id="3_blvtx"]
+[ext_resource type="PackedScene" uid="uid://bkjeuvdk01svi" path="res://Scenes/user_interface.tscn" id="4_7q5hh"]
+[ext_resource type="PackedScene" uid="uid://dma5jbv7ic7km" path="res://Scenes/global_timer.tscn" id="5_i5uyf"]
 
 [node name="Root" type="Node3D"]
+script = ExtResource("1_k82q4")
 
-[node name="CameraBase" type="Node3D" parent="."]
-script = ExtResource("1_6rsc6")
+[node name="CameraBase" parent="." instance=ExtResource("2_wu88m")]
 
-[node name="Camera3D" type="Camera3D" parent="CameraBase"]
-transform = Transform3D(1, 3.09086e-08, 1.28028e-08, -2.85979e-08, 0.591154, 0.806558, 1.73612e-08, -0.806558, 0.591154, -6.65756e-05, 9.8384, 6.40288)
+[node name="World" parent="." instance=ExtResource("3_blvtx")]
 
-[node name="SelectionBox" type="Control" parent="CameraBase"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("2_l6i44")
+[node name="User Interface" parent="." instance=ExtResource("4_7q5hh")]
 
-[node name="World" type="Node3D" parent="."]
+[node name="Global Timer" parent="." instance=ExtResource("5_i5uyf")]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="World"]
-navigation_mesh = SubResource("NavigationMesh_b4ob1")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="World/NavigationRegion3D"]
-
-[node name="Floor" type="MeshInstance3D" parent="World/NavigationRegion3D/StaticBody3D"]
-transform = Transform3D(13.22, 0, 0, 0, 13.22, 0, 0, 0, 13.22, 0, 0, 0)
-mesh = SubResource("PlaneMesh_ilnnx")
-skeleton = NodePath("../../../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0261021, -0.3335, 0.00514317)
-shape = SubResource("BoxShape3D_7u75y")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
-
-[node name="Unit2" parent="World" instance=ExtResource("2_wa0w0")]
-transform = Transform3D(-0.204518, 0, 0.271611, 0, 0.34, 0, -0.271611, 0, -0.204518, -1.359, 0.1839, -1.19491)
-
-[node name="Unit3" parent="World" instance=ExtResource("2_wa0w0")]
-transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, 0.622399, 0.1839, -1.11449)
-
-[node name="Unit4" parent="World" instance=ExtResource("2_wa0w0")]
-transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, -1.13807, 0.1839, 1.65133)
-
-[node name="DeathZoneRoot" parent="World" instance=ExtResource("4_53tp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.019, 0)
+[connection signal="timer_expired" from="Global Timer" to="User Interface" method="_on_global_timer_timer_expired"]
+[connection signal="timer_updated" from="Global Timer" to="User Interface" method="_on_global_timer_timer_updated"]
