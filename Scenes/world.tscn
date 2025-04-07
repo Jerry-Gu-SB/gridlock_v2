@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://x4rkakcug4ls"]
+
+[ext_resource type="PackedScene" uid="uid://dm724idiljfgd" path="res://Scenes/unit.tscn" id="1_vyqtg"]
+[ext_resource type="PackedScene" uid="uid://dk1ogy5ggbaw8" path="res://Scenes/death_zone.tscn" id="2_8fwfa"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_b4ob1"]
+vertices = PackedVector3Array(-19.33, 0.5, -19.33, -19.33, 0.5, 19.42, 19.42, 0.5, 19.42, 19.42, 0.5, -19.33)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxoh7"]
+albedo_color = Color(1, 0.741176, 0.752941, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ilnnx"]
+material = SubResource("StandardMaterial3D_mxoh7")
+size = Vector2(3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7u75y"]
+size = Vector3(40, 0.705, 40)
+
+[node name="World" type="Node3D"]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_b4ob1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(13.22, 0, 0, 0, 13.22, 0, 0, 0, 13.22, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ilnnx")
+skeleton = NodePath("../../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0261021, -0.3335, 0.00514317)
+shape = SubResource("BoxShape3D_7u75y")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="Unit2" parent="." instance=ExtResource("1_vyqtg")]
+transform = Transform3D(-0.204518, 0, 0.271611, 0, 0.34, 0, -0.271611, 0, -0.204518, -1.359, 0.1839, -1.19491)
+
+[node name="Unit3" parent="." instance=ExtResource("1_vyqtg")]
+transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, 0.622399, 0.1839, -1.11449)
+
+[node name="Unit4" parent="." instance=ExtResource("1_vyqtg")]
+transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, -1.13807, 0.1839, 1.65133)
+
+[node name="DeathZoneRoot" parent="." instance=ExtResource("2_8fwfa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.019, 0)

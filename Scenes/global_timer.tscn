@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dma5jbv7ic7km"]
+
+[ext_resource type="Script" path="res://Scripts/global_timer.gd" id="1_jpeyq"]
+
+[node name="Global Timer" type="Node"]
+script = ExtResource("1_jpeyq")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
