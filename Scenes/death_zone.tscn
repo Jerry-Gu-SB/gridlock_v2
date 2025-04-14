@@ -13,7 +13,8 @@ material = SubResource("StandardMaterial3D_3mvcj")
 [sub_resource type="BoxShape3D" id="BoxShape3D_twbld"]
 size = Vector3(2, 1, 2)
 
-[node name="DeathZoneRoot" type="Area3D"]
+[node name="DeathZone" type="Area3D"]
+collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_4gxvn")
 

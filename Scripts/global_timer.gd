@@ -11,13 +11,13 @@ func _ready():
 	add_child(timer)
 	timer.timeout.connect(_on_timer_timeout)
 
-
 func start_timer(duration: float):
 	timer.wait_time = duration
 	timer.start()
 
 func _on_timer_timeout():
 	timer_expired.emit()
+	timer.start()
 
 func _process(_delta):
 	if timer.is_stopped():

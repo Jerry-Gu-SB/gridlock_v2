@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://x4rkakcug4ls"]
+[gd_scene load_steps=8 format=3 uid="uid://x4rkakcug4ls"]
 
 [ext_resource type="PackedScene" uid="uid://dm724idiljfgd" path="res://Scenes/unit.tscn" id="1_vyqtg"]
 [ext_resource type="PackedScene" uid="uid://dk1ogy5ggbaw8" path="res://Scenes/death_zone.tscn" id="2_8fwfa"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_b4ob1"]
-vertices = PackedVector3Array(-19.33, 0.5, -19.33, -19.33, 0.5, 19.42, 19.42, 0.5, 19.42, 19.42, 0.5, -19.33)
+vertices = PackedVector3Array(-6.11, 0.5, -6.11, -6.11, 0.5, 6.14, 6.14, 0.5, 6.14, 6.14, 0.5, -6.11)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxoh7"]
@@ -12,10 +12,86 @@ albedo_color = Color(1, 0.741176, 0.752941, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ilnnx"]
 material = SubResource("StandardMaterial3D_mxoh7")
-size = Vector2(3, 3)
+size = Vector2(1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7u75y"]
-size = Vector3(40, 0.705, 40)
+size = Vector3(13, 0, 13)
+
+[sub_resource type="GDScript" id="GDScript_ythsf"]
+script/source = "extends Node3D
+
+@export var death_zone_scene: PackedScene
+@export var spawn_origin: Vector3 = Vector3.ZERO
+@export var spacing: float = 3.0
+
+var active_zones: Array[Node3D] = []
+var pattern_index := 0
+var patterns = [\"checkmark\", \"x\", \"zigzag\"]
+
+func _ready():
+	GlobalTimer.timer_expired.connect(_on_timer_expired)
+
+func _on_timer_expired():
+	await get_tree().process_frame  # ensures _on_global_timer_expired runs in DeathZone
+
+	for zone in active_zones:
+		if zone:
+			zone.queue_free()
+	active_zones.clear()
+
+	pattern_index = (pattern_index + 1) % patterns.size()
+	var new_positions = get_pattern_positions(patterns[pattern_index])
+
+	for pos in new_positions:
+		var zone = death_zone_scene.instantiate()
+		add_child(zone)  # must add to tree before setting transforms
+		zone.global_transform.origin = spawn_origin + pos * spacing
+		active_zones.append(zone)
+
+func get_pattern_positions(pattern: String) -> Array[Vector3]:
+	match pattern:
+		\"checkmark\":
+			return [
+				Vector3(0, 0, 5),
+				Vector3(1, 0, 4),
+				Vector3(2, 0, 3),
+				Vector3(3, 0, 2),
+				Vector3(4, 0, 1),
+				Vector3(5, 0, 2),
+				Vector3(6, 0, 3),
+				Vector3(7, 0, 4),
+				Vector3(8, 0, 5),
+				Vector3(9, 0, 6)
+			]
+		\"x\":
+			return [
+				Vector3(0, 0, 0),
+				Vector3(1, 0, 1),
+				Vector3(2, 0, 2),
+				Vector3(3, 0, 3),
+				Vector3(4, 0, 4),
+				Vector3(0, 0, 4),
+				Vector3(1, 0, 3),
+				Vector3(2, 0, 2),
+				Vector3(3, 0, 1),
+				Vector3(4, 0, 0)
+			]
+		\"zigzag\":
+			return [
+				Vector3(0, 0, 0),
+				Vector3(1, 0, 1),
+				Vector3(2, 0, 0),
+				Vector3(3, 0, 1),
+				Vector3(4, 0, 0),
+				Vector3(5, 0, 1),
+				Vector3(6, 0, 0),
+				Vector3(7, 0, 1),
+				Vector3(8, 0, 0),
+				Vector3(9, 0, 1)
+			]
+		_:
+			return []
+"
 
 [node name="World" type="Node3D"]
 
@@ -44,5 +120,8 @@ transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, 0.622399, 0.1839, -1
 [node name="Unit4" parent="." instance=ExtResource("1_vyqtg")]
 transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, -1.13807, 0.1839, 1.65133)
 
-[node name="DeathZoneRoot" parent="." instance=ExtResource("2_8fwfa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23109, 0.480221, 3.08198)
+[node name="DeathZoneManager" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, -6.5)
+script = SubResource("GDScript_ythsf")
+death_zone_scene = ExtResource("2_8fwfa")
+spawn_origin = Vector3(-6.5, 0.705, -6.5)

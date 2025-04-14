@@ -11,10 +11,10 @@ var selected_units = []
 @onready var camera = $Camera3D
 @onready var selection_box = $SelectionBox
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	var mouse_position: Vector2 = get_viewport().get_mouse_position()
 	#uncomment to enable camera scroll, and delete underscore from delta
-	#calc_move(mouse_position, delta)
+	calc_move(mouse_position, delta)
 	if Input.is_action_just_pressed("main_command"):
 		move_selected_units(mouse_position)
 	if Input.is_action_just_pressed("alternate_command"):
@@ -46,6 +46,8 @@ func calc_move(mouse_position: Vector2, delta: float) -> void:
 	translate(move_vec * delta * MOVE_SPEED)
 
 func move_selected_units(mouse_position):
+	selected_units = selected_units.filter(func(unit): return is_instance_valid(unit))
+
 	var result = raycast_from_mouse(mouse_position, 1)
 	if result:
 		for unit in selected_units:
@@ -61,6 +63,7 @@ func select_units(mouse_position):
 		new_selected_units = get_units_in_box(start_selection_position, mouse_position)
 		
 	if new_selected_units.size() != 0:
+		selected_units = selected_units.filter(func(unit): return is_instance_valid(unit))
 		for unit in selected_units:
 			unit.deselect()
 		for unit in new_selected_units:
@@ -101,7 +104,3 @@ func raycast_from_mouse(mouse_position: Vector2, collision_mask: int):
 	intersect_ray_params.collision_mask = collision_mask
 
 	return space_state.intersect_ray(intersect_ray_params)
-
-
-func _on_global_timer_timer_expired() -> void:
-	pass # Replace with function body.
