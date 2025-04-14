@@ -1,7 +1,5 @@
 extends Node3D
 
-@onready var timer = $"Global Timer/Timer"
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalTimer.start_timer(3.0)

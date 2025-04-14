@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://blo6v3dffhu2c"]
+[gd_scene load_steps=5 format=3 uid="uid://blo6v3dffhu2c"]
 
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_k82q4"]
 [ext_resource type="PackedScene" uid="uid://bfrofs3i8yyls" path="res://Scenes/camera_base.tscn" id="2_wu88m"]
 [ext_resource type="PackedScene" uid="uid://x4rkakcug4ls" path="res://Scenes/world.tscn" id="3_blvtx"]
 [ext_resource type="PackedScene" uid="uid://bkjeuvdk01svi" path="res://Scenes/user_interface.tscn" id="4_7q5hh"]
-[ext_resource type="PackedScene" uid="uid://dma5jbv7ic7km" path="res://Scenes/global_timer.tscn" id="5_i5uyf"]
 
 [node name="Root" type="Node3D"]
 script = ExtResource("1_k82q4")
@@ -14,8 +13,3 @@ script = ExtResource("1_k82q4")
 [node name="World" parent="." instance=ExtResource("3_blvtx")]
 
 [node name="User Interface" parent="." instance=ExtResource("4_7q5hh")]
-
-[node name="Global Timer" parent="." instance=ExtResource("5_i5uyf")]
-
-[connection signal="timer_expired" from="Global Timer" to="User Interface" method="_on_global_timer_timer_expired"]
-[connection signal="timer_updated" from="Global Timer" to="User Interface" method="_on_global_timer_timer_updated"]

@@ -45,4 +45,4 @@ transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, 0.622399, 0.1839, -1
 transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, -1.13807, 0.1839, 1.65133)
 
 [node name="DeathZoneRoot" parent="." instance=ExtResource("2_8fwfa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.019, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23109, 0.480221, 3.08198)
