@@ -11,10 +11,10 @@ var selected_units = []
 @onready var camera = $Camera3D
 @onready var selection_box = $SelectionBox
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var mouse_position: Vector2 = get_viewport().get_mouse_position()
 	#uncomment to enable camera scroll, and delete underscore from delta
-	calc_move(mouse_position, delta)
+	#calc_move(mouse_position, delta)
 	if Input.is_action_just_pressed("main_command"):
 		move_selected_units(mouse_position)
 	if Input.is_action_just_pressed("alternate_command"):

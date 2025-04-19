@@ -9,6 +9,7 @@
 script = ExtResource("1_k82q4")
 
 [node name="CameraBase" parent="." instance=ExtResource("2_wu88m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.851165)
 
 [node name="World" parent="." instance=ExtResource("3_blvtx")]
 

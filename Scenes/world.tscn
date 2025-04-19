@@ -22,11 +22,11 @@ script/source = "extends Node3D
 
 @export var death_zone_scene: PackedScene
 @export var spawn_origin: Vector3 = Vector3.ZERO
-@export var spacing: float = 3.0
+@export var spacing: float = 2.0
 
 var active_zones: Array[Node3D] = []
 var pattern_index := 0
-var patterns = [\"checkmark\", \"x\", \"zigzag\"]
+var patterns = [\"x\", \"zigzag\", \"foursquare\", \"cross\"]
 
 func _ready():
 	GlobalTimer.timer_expired.connect(_on_timer_expired)
@@ -50,44 +50,136 @@ func _on_timer_expired():
 
 func get_pattern_positions(pattern: String) -> Array[Vector3]:
 	match pattern:
-		\"checkmark\":
-			return [
-				Vector3(0, 0, 5),
-				Vector3(1, 0, 4),
-				Vector3(2, 0, 3),
-				Vector3(3, 0, 2),
-				Vector3(4, 0, 1),
-				Vector3(5, 0, 2),
-				Vector3(6, 0, 3),
-				Vector3(7, 0, 4),
-				Vector3(8, 0, 5),
-				Vector3(9, 0, 6)
-			]
 		\"x\":
 			return [
+				Vector3(-3, 0, -3),
+				Vector3(-2, 0, -2),
+				Vector3(-1, 0, -1),
 				Vector3(0, 0, 0),
 				Vector3(1, 0, 1),
 				Vector3(2, 0, 2),
 				Vector3(3, 0, 3),
-				Vector3(4, 0, 4),
-				Vector3(0, 0, 4),
-				Vector3(1, 0, 3),
-				Vector3(2, 0, 2),
-				Vector3(3, 0, 1),
-				Vector3(4, 0, 0)
+				Vector3(-3, 0, 3),
+				Vector3(-2, 0, 2),
+				Vector3(-1, 0, 1),
+				Vector3(0, 0, 0),
+				Vector3(1, 0, -1),
+				Vector3(2, 0, -2),
+				Vector3(3, 0, -3),
 			]
 		\"zigzag\":
 			return [
+				Vector3(-3, 0, 1),
+				Vector3(-2, 0, 0),
+				Vector3(-1, 0, 1),
 				Vector3(0, 0, 0),
 				Vector3(1, 0, 1),
 				Vector3(2, 0, 0),
 				Vector3(3, 0, 1),
+				
+				Vector3(-3, 0, 3),
+				Vector3(-2, 0, 2),
+				Vector3(-1, 0, 3),
+				Vector3(0, 0, 2),
+				Vector3(1, 0, 3),
+				Vector3(2, 0, 2),
+				Vector3(3, 0, 3),
+				
+				Vector3(-3, 0, -1),
+				Vector3(-2, 0, -2),
+				Vector3(-1, 0, -1),
+				Vector3(0, 0, -2),
+				Vector3(1, 0, -1),
+				Vector3(2, 0, -2),
+				Vector3(3, 0, -1),
+				
+				Vector3(-3, 0, -3),
+				Vector3(-2, 0, -4),
+				Vector3(-1, 0, -3),
+				Vector3(0, 0, -4),
+				Vector3(1, 0, -3),
+				Vector3(2, 0, -4),
+				Vector3(3, 0, -3),
+			]
+		\"foursquare\":
+			return [
+				Vector3(1, 0, 0),
+				Vector3(1, 0, 1),
+				Vector3(1, 0, 2),
+				Vector3(1, 0, 3),
+				Vector3(2, 0, 0),
+				Vector3(2, 0, 1),
+				Vector3(2, 0, 2),
+				Vector3(2, 0, 3),
+				Vector3(3, 0, 0),
+				Vector3(3, 0, 1),
+				Vector3(3, 0, 2),
+				Vector3(3, 0, 3),
+				
+				Vector3(0, 0, -1),
+				Vector3(0, 0, -2),
+				Vector3(0, 0, -3),
+				Vector3(-1, 0, -1),
+				Vector3(-1, 0, -2),
+				Vector3(-1, 0, -3),
+				Vector3(-2, 0, -1),
+				Vector3(-2, 0, -2),
+				Vector3(-2, 0, -3),
+				Vector3(-3, 0, -1),
+				Vector3(-3, 0, -2),
+				Vector3(-3, 0, -3),
+			]
+		\"cross\":
+			return [
+				Vector3(-1, 0, 1),
+				Vector3(0, 0, 1),
+				Vector3(1, 0, 1),
+				Vector3(-1, 0, 0),
+				Vector3(0, 0, 0),
+				Vector3(1, 0, 0),
+				Vector3(-1, 0, -1),
+				Vector3(0, 0, -1),
+				Vector3(1, 0, -1),
+				
+				Vector3(-4, 0, 1),
+				Vector3(-3, 0, 1),
+				Vector3(-2, 0, 1),
+				Vector3(-4, 0, 0),
+				Vector3(-3, 0, 0),
+				Vector3(-2, 0, 0),
+				Vector3(-4, 0, -1),
+				Vector3(-3, 0, -1),
+				Vector3(-2, 0, -1),
+				
+				Vector3(4, 0, 1),
+				Vector3(3, 0, 1),
+				Vector3(2, 0, 1),
 				Vector3(4, 0, 0),
-				Vector3(5, 0, 1),
-				Vector3(6, 0, 0),
-				Vector3(7, 0, 1),
-				Vector3(8, 0, 0),
-				Vector3(9, 0, 1)
+				Vector3(3, 0, 0),
+				Vector3(2, 0, 0),
+				Vector3(4, 0, -1),
+				Vector3(3, 0, -1),
+				Vector3(2, 0, -1),
+				
+				Vector3(1, 0, 4),
+				Vector3(1, 0, 3),
+				Vector3(1, 0, 2),
+				Vector3(0, 0, 4),
+				Vector3(0, 0, 3),
+				Vector3(0, 0, 2),
+				Vector3(-1, 0, 4),
+				Vector3(-1, 0, 3),
+				Vector3(-1, 0, 2),
+				
+				Vector3(1, 0, -4),
+				Vector3(1, 0, -3),
+				Vector3(1, 0, -2),
+				Vector3(0, 0, -4),
+				Vector3(0, 0, -3),
+				Vector3(0, 0, -2),
+				Vector3(-1, 0,-4),
+				Vector3(-1, 0, -3),
+				Vector3(-1, 0, -2),
 			]
 		_:
 			return []
@@ -121,7 +213,7 @@ transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, 0.622399, 0.1839, -1
 transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, -1.13807, 0.1839, 1.65133)
 
 [node name="DeathZoneManager" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
 script = SubResource("GDScript_ythsf")
 death_zone_scene = ExtResource("2_8fwfa")
-spawn_origin = Vector3(-6.5, 0.705, -6.5)
+spawn_origin = Vector3(0, 0.1, 0)
