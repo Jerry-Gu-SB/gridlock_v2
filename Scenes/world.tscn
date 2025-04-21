@@ -33,7 +33,10 @@ func _ready():
 
 func _on_timer_expired():
 	await get_tree().process_frame  # ensures _on_global_timer_expired runs in DeathZone
-
+	
+	self.rotate_y(randi() % 180)
+	spacing = randf_range(1.5, 2.5)
+	
 	for zone in active_zones:
 		if zone:
 			zone.queue_free()
@@ -213,7 +216,6 @@ transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, 0.622399, 0.1839, -1
 transform = Transform3D(0.34, 0, 0, 0, 0.34, 0, 0, 0, 0.34, -1.13807, 0.1839, 1.65133)
 
 [node name="DeathZoneManager" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
 script = SubResource("GDScript_ythsf")
 death_zone_scene = ExtResource("2_8fwfa")
 spawn_origin = Vector3(0, 0.1, 0)

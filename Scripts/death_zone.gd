@@ -1,22 +1,24 @@
 extends Area3D
 
-var detected_units: Array = []
+var units_in_zone: Array = []
 
 func _ready():
 	GlobalTimer.timer_expired.connect(_on_global_timer_expired)
+	connect("body_entered", _on_body_entered)
+	connect("body_exited", _on_body_exited)
+
+func _on_body_entered(body):
+	if body.is_in_group("units"):
+		if not units_in_zone.has(body):
+			units_in_zone.append(body)
+			body.set_highlighted_by_deathzone(true)
+
+func _on_body_exited(body):
+	if body.is_in_group("units"):
+		units_in_zone.erase(body)
+		body.set_highlighted_by_deathzone(false)
 
 func _on_global_timer_expired():
-	detected_units.clear()
-	for body in get_overlapping_bodies():
-		if body.is_in_group("units"):
-			detected_units.append(body)
-
-	if detected_units.size() > 0:
-		print(name, " hit units: ", detected_units.map(func(u): return u.name))
-		_process_hits(detected_units)
-	else:
-		print(name, ": No units hit.")
-
-func _process_hits(units: Array):
-	for unit in units:
+	for unit in units_in_zone.duplicate():
 		unit.queue_free()
+	units_in_zone.clear()
