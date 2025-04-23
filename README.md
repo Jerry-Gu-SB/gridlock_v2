@@ -1,9 +1,3 @@
-﻿# gridlock_v2  
+﻿# Divide and Conquer
 
-use a tempurature as a life system. maybe like have the tempurature keep going up. maybe keep the screen a little red when you are doing well. make timer limit go down a little bit. once tempurature goes to some X tempurature, game ends. tempurature going up lines up with the increasing red zone because it's your body raising its own tempurature to get rid of the bacteria.  
-
-make end screens.   
-
-stretch goals:  
-- music?
-- units changing properties on multiplication
+Game created for ENGL 3500 - Literary Games at the University of Virginia taught by Prof. Brad Pasanek and Jason Bennett.
