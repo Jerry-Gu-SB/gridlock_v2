@@ -19,6 +19,7 @@ var material_danger = preload("res://Materials/unit_danger.tres")
 @onready var body_mesh : MeshInstance3D = $Body
 
 func _ready():
+	selection_ring.visible = false
 	GlobalTimer.timer_expired.connect(_on_timer_expired)
 	
 func _on_timer_expired():
@@ -35,6 +36,8 @@ func _on_timer_expired():
 		dup.body_mesh.set_surface_override_material(0, material_standard)
 
 	get_parent().add_child(dup)
+	dup.deselect()
+	
 	dup.add_to_group("units")
 
 

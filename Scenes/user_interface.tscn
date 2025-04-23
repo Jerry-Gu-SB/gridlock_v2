@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkjeuvdk01svi"]
+[gd_scene load_steps=3 format=3 uid="uid://bkjeuvdk01svi"]
 
 [ext_resource type="Script" path="res://Scripts/user_interface.gd" id="1_te7kq"]
+[ext_resource type="PackedScene" uid="uid://cqnb3tkjj82nd" path="res://Scenes/player_loss.tscn" id="2_fixtv"]
 
 [node name="User Interface" type="Control"]
 layout_mode = 3
@@ -9,7 +10,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_te7kq")
 
+[node name="PlayerLoss" parent="." instance=ExtResource("2_fixtv")]
+layout_mode = 1
+
 [node name="UI Timer" type="Label" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+
+[connection signal="retry_requested" from="PlayerLoss" to="." method="_on_player_loss_retry_requested"]
