@@ -1,42 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqnb3tkjj82nd"]
+[gd_scene load_steps=3 format=3 uid="uid://bdwgw8lp0ncjr"]
 
-[ext_resource type="Script" path="res://Scripts/player_loss.gd" id="1_l0l0y"]
+[ext_resource type="Script" path="res://Scripts/player_win.gd" id="1_kqngq"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_irh3v"]
+[sub_resource type="LabelSettings" id="LabelSettings_4obky"]
 font_size = 50
-font_color = Color(0, 0, 0, 1)
+font_color = Color(1, 0, 0, 1)
 
-[node name="PlayerLoss" type="Control"]
+[node name="PlayerWin" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_l0l0y")
+script = ExtResource("1_kqngq")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
-offset_right = 1242.0
-offset_bottom = 700.0
+offset_left = -2.0
+offset_top = -34.0
+offset_right = 1174.0
+offset_bottom = 660.0
+color = Color(0.00784314, 0, 0, 1)
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 0
 offset_left = -2.0
 offset_top = -34.0
 offset_right = 1148.0
 offset_bottom = 609.0
 text = "The End"
-label_settings = SubResource("LabelSettings_irh3v")
+label_settings = SubResource("LabelSettings_4obky")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 532.0
-offset_top = 340.0
-offset_right = 620.0
-offset_bottom = 371.0
+offset_left = 524.0
+offset_top = 327.0
+offset_right = 612.0
+offset_bottom = 358.0
 text = "Play Again"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -16,4 +16,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.851165)
 [node name="User Interface" parent="." instance=ExtResource("4_7q5hh")]
 
 [connection signal="player_loss" from="." to="User Interface" method="_on_root_player_loss"]
+[connection signal="player_win" from="." to="User Interface" method="_on_root_player_win"]
+[connection signal="third_option" from="." to="User Interface" method="_on_root_third_option"]
 [connection signal="restart_game" from="User Interface" to="." method="_on_user_interface_restart_game"]
