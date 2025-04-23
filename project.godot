@@ -23,6 +23,10 @@ GlobalTimer="*res://Scenes/global_timer.tscn"
 
 gdscript/warnings/unused_signal=0
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 main_command={
